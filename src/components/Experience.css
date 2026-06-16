@@ -4,27 +4,23 @@
   margin: 0 auto;
   border-top: 1px solid #ddd7c8;
 }
-
 .experience__header {
   display: flex;
   align-items: baseline;
   gap: 18px;
   margin-bottom: 48px;
 }
-
 .experience__number {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 15px;
   color: #2d8a5b;
 }
-
 .experience__title {
   margin: 0;
   font-size: clamp(34px, 4.5vw, 52px);
   font-weight: 700;
   letter-spacing: -1.5px;
 }
-
 .experience__item {
   display: grid;
   grid-template-columns: 200px 1fr;
@@ -32,36 +28,29 @@
   padding: 30px 0;
   border-top: 1px solid #17150f;
 }
-
 .experience__item--featured {
   border-top-color: #17150f;
 }
-
 .experience__item--placeholder {
   border-top-color: #e3ddce;
   border-bottom: 1px solid #e3ddce;
 }
-
 .experience__year {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 13.5px;
   color: #2d8a5b;
 }
-
 .experience__year--placeholder {
   color: #9a9484;
 }
-
 .experience__role {
   margin: 0 0 6px;
   font-size: 22px;
   font-weight: 600;
 }
-
 .experience__role--placeholder {
   color: #bdb6a4;
 }
-
 .experience__description {
   margin: 0;
   max-width: 620px;
@@ -69,10 +58,8 @@
   line-height: 1.7;
   color: #5f5b50;
 }
-
 .experience__description--placeholder {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 13px;
   color: #bdb6a4;
 }
-

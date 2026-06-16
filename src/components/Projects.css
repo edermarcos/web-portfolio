@@ -25,6 +25,57 @@
   letter-spacing: -1.5px;
 }
 
+/* Filtros de tecnología */
+.projects__filters {
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: #f8f6f0;
+  border-radius: 8px;
+}
+
+.projects__filters-label {
+  margin: 0 0 15px 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: #2d8a5b;
+  font-weight: 600;
+}
+
+.projects__filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.projects__filter-btn {
+  padding: 8px 16px;
+  border: 1px solid #ddd7c8;
+  background-color: white;
+  color: #5f5b50;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: 'IBM Plex Mono', monospace;
+  transition: all 0.2s ease-in-out;
+}
+
+.projects__filter-btn:hover {
+  border-color: #2d8a5b;
+  background-color: #f0f8f4;
+}
+
+.projects__filter-btn.active {
+  background-color: #2d8a5b;
+  color: white;
+  border-color: #2d8a5b;
+}
+
+/* Lista de proyectos */
+.projects__list {
+  display: flex;
+  flex-direction: column;
+}
+
 .project {
   text-decoration: none;
   color: inherit;
@@ -34,6 +85,11 @@
   align-items: start;
   padding: 36px 0;
   border-top: 1px solid #17150f;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.project.hidden {
+  display: none;
 }
 
 .project--featured {
@@ -114,3 +170,57 @@
   color: #cfc8b6;
 }
 
+/* Galería de imágenes */
+.project__images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.project__image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid #ddd7c8;
+  transition: transform 0.2s ease-in-out;
+}
+
+.project__image:hover {
+  transform: scale(1.02);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .projects {
+    padding: 60px 24px;
+  }
+
+  .project {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .project__cta {
+    text-align: left;
+  }
+
+  .projects__filters {
+    padding: 16px;
+  }
+
+  .projects__filters-container {
+    gap: 8px;
+  }
+
+  .projects__filter-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .project__images {
+    grid-template-columns: 1fr;
+  }
+}
