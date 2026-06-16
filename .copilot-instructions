@@ -1,0 +1,51 @@
+# Instrucciones para GitHub Copilot
+
+## Contexto del Proyecto
+Este es un proyecto frontend con Astro para un portafolio profesional.
+
+## Reglas de Código
+### Lenguaje y Framework
+- **Lenguaje principal**: TypeScript
+- **Framework**: Astro 5+
+- **HTTP Client**: fetch nativo con helpers tipados
+- **Contenido**: Content Collections para datos estructurados
+
+## Prácticas a Evitar
+- ❌ No usar `any` en TypeScript
+- ❌ No usar `console.log()` en producción
+- ❌ No convertir en isla (`client:*`) componentes que no necesitan interactividad
+- ❌ No colocar lógica de negocio dentro de componentes `.astro`
+- ❌ No hacer fetch de datos en el cliente si pueden obtenerse en build time o SSR
+- ❌ No mezclar componentes de distintos frameworks en el mismo árbol sin necesidad
+- ❌ No crear archivos .md con instrucciones, documentación o READMEs
+- ❌ No agregar comentarios innecesarios en el código
+- ❌ No ignorar el tipado de `Astro.props`
+
+## Prácticas Recomendadas
+- ✅ Siempre aplicar las mejores prácticas de programación
+- ✅ Preferir rendering en servidor (SSR) o estático sobre client-side
+- ✅ Código limpio y autoexplicativo sin comentarios innecesarios
+- ✅ Usar islas (`client:load`, `client:idle`, `client:visible`) con criterio mínimo necesario
+- ✅ Aplicar principios SOLID en servicios y utilidades
+- ✅ Crear interfaces/types para todos los modelos de datos
+- ✅ Centralizar llamadas a APIs en `src/services/` con tipado estricto
+- ✅ Usar Content Collections con esquemas Zod para datos tipados
+- ✅ Aprovechar el frontmatter de `.astro` para obtener datos en build/SSR
+- ✅ Implementar layouts reutilizables en `src/layouts/`
+- ✅ Código conciso y directo, sin documentación externa innecesaria
+
+## Estructura de Carpetas
+```
+src/
+├── components/        # Componentes .astro reutilizables y UI islands
+│   ├── ui/            # Componentes React/Svelte interactivos
+│   └── layout/        # Bloques de maquetación
+├── layouts/           # Layouts base de páginas
+├── pages/             # Rutas (file-based routing)
+│   └── api/           # Endpoints de API (SSR)
+├── services/          # Lógica de acceso a datos y APIs externas
+├── types/             # Interfaces y tipos globales
+├── utils/             # Funciones utilitarias puras
+└── content/           # Content Collections (si aplica)
+```
+

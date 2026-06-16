@@ -1,0 +1,42 @@
+---
+// Hero.astro
+import './Hero.css';
+---
+
+<section id="inicio" class="hero">
+  <div class="hero__grid">
+    <div class="hero__content">
+      <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        Disponible para proyectos
+      </div>
+      <h1 class="hero__title">Eder Marcos.</h1>
+      <p class="hero__subtitle">Full-Stack Developer</p>
+      <p class="hero__description">
+        Mi especialidad es JavaScript y disfruto trabajando en el Frontend. Mi experiencia se ha centrado principalmente en Angular, aunque últimamente he diversificado mis habilidades con tecnologías como React.
+      </p>
+      <div class="hero__ctas">
+        <a href="#" class="hero__cta hero__cta--primary">Descargar CV →</a>
+        <a href="#proyectos" class="hero__cta hero__cta--secondary">Ver proyectos</a>
+      </div>
+    </div>
+
+    <div class="hero__code-card">
+      <div class="hero__code-header">
+        <span class="hero__code-dot"></span>
+        <span class="hero__code-dot"></span>
+        <span class="hero__code-dot"></span>
+        <span class="hero__code-filename">index.js</span>
+      </div>
+      <pre class="hero__code"><span class="keyword">const</span> <span class="variable">eder</span> = &#123;
+  rol: <span class="string">'Full-Stack Developer'</span>,
+  base: <span class="string">'JavaScript/TypeScript'</span>,
+  frontend: [<span class="string">'Angular'</span>, <span class="string">'React'</span>, <span class="string">'Astro'</span>],
+  backend: [<span class="string">'Node.js'</span>, <span class="string">'Nest.js'</span>],
+  enfoque: <span class="string">'Aplicaciones escalables'</span>,
+&#125;;</pre>
+    </div>
+  </div>
+</section>
+
+
