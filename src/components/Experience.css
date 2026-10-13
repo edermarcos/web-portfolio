@@ -63,3 +63,39 @@
   font-size: 13px;
   color: #bdb6a4;
 }
+
+@media (max-width: 768px) {
+  .experience {
+    padding: 64px 24px;
+  }
+
+  .experience__item {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 26px 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .experience {
+    padding: 52px 18px;
+  }
+
+  .experience__header {
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .experience__title {
+    font-size: clamp(30px, 9vw, 40px);
+    letter-spacing: -1px;
+  }
+
+  .experience__role {
+    font-size: 19px;
+  }
+
+  .experience__description {
+    font-size: 15px;
+  }
+}

@@ -68,3 +68,45 @@
   border-bottom: 1px solid #e3ddce;
 }
 
+@media (max-width: 768px) {
+  .skills {
+    padding: 64px 24px;
+  }
+
+  .skills__header {
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    margin-bottom: 36px;
+  }
+
+  .skills__comment {
+    flex-basis: 100%;
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .skills__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 24px;
+  }
+}
+
+@media (max-width: 520px) {
+  .skills {
+    padding: 52px 18px;
+  }
+
+  .skills__header {
+    margin-bottom: 28px;
+  }
+
+  .skills__title {
+    font-size: clamp(30px, 9vw, 40px);
+    letter-spacing: -1px;
+  }
+
+  .skills__grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}

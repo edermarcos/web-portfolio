@@ -60,3 +60,40 @@
   color: #9a9484;
 }
 
+@media (max-width: 768px) {
+  .footer {
+    padding: 72px 24px;
+  }
+
+  .footer__content {
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .footer__copyright {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .footer {
+    padding: 56px 18px;
+  }
+
+  .footer__title {
+    font-size: clamp(32px, 9vw, 48px);
+    letter-spacing: -1.5px;
+  }
+
+  .footer__content,
+  .footer__links {
+    gap: 16px;
+  }
+
+  .footer__cta {
+    max-width: 100%;
+    padding: 14px 16px;
+    overflow-wrap: anywhere;
+  }
+}
