@@ -9,17 +9,10 @@ const { technologies } = Astro.props;
 <div class="experience__filters">
   <p class="experience__filters-label">Filtrar por tecnología:</p>
   <div class="experience__filters-container">
-    {
-      technologies.map((tech) => (
-        <button
-          class="experience__filter-btn"
-          data-tech={tech}
-          title={`Filtrar por ${tech}`}
-        >
-          {tech}
-        </button>
-      ))
-    }
+    {technologies.map((tech) => (
+      <button class="experience__filter-btn" data-tech={tech} title={`Filtrar por ${tech}`}>
+        {tech}
+      </button>
+    ))}
   </div>
 </div>
-

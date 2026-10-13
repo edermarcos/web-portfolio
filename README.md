@@ -11,14 +11,14 @@ Sitio personal desarrollado con Astro. Esta guía resume las tecnologías, los r
 
 ## Requisitos
 
-- **Node.js**: `22.12.0` o superior
+- **Node.js**: `22.22.3` o superior
 - **npm**: incluido con Node.js
 
 Si usas `nvm`, puedes instalar y activar Node.js así:
 
 ```bash
-nvm install 22.12.0
-nvm use 22.12.0
+nvm install 22.22.3
+nvm use 22.22.3
 ```
 
 ## Instalación
@@ -41,12 +41,25 @@ Astro inicia el servidor local en `http://localhost:4321`.
 
 ## Comandos disponibles
 
-| Comando | Descripción |
-| --- | --- |
-| `npm run dev` | Inicia el servidor de desarrollo |
-| `npm run build` | Genera el sitio para producción en `dist/` |
-| `npm run preview` | Previsualiza localmente la compilación |
-| `npm run astro -- --help` | Muestra la ayuda de Astro CLI |
+| Comando                   | Descripción                                             |
+| ------------------------- | ------------------------------------------------------- |
+| `npm run dev`             | Inicia el servidor de desarrollo                        |
+| `npm run build`           | Genera el sitio para producción en `dist/`              |
+| `npm run preview`         | Previsualiza localmente la compilación                  |
+| `npm run astro -- --help` | Muestra la ayuda de Astro CLI                           |
+| `npm run lint`            | Ejecuta ESLint                                          |
+| `npm run lint:fix`        | Corrige automáticamente las reglas aplicables de ESLint |
+| `npm run format`          | Aplica Prettier a los archivos del proyecto             |
+| `npm run format:check`    | Comprueba el formato sin modificar archivos             |
+
+## Calidad de código y hooks
+
+- **ESLint** aplica las reglas recomendadas para JavaScript, TypeScript y Astro, además de exigir llaves, igualdad estricta y `const` cuando una variable no se reasigna.
+- **Prettier** formatea los archivos Astro con `prettier-plugin-astro`.
+- **Husky** ejecuta `lint-staged` antes de cada commit para aplicar ESLint y Prettier a los archivos preparados.
+- **Commitlint** valida que el mensaje del commit siga Conventional Commits.
+
+Los hooks se configuran automáticamente al instalar las dependencias con `npm ci`.
 
 ## Estructura del proyecto
 

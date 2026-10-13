@@ -3,98 +3,89 @@ import './Projects.css';
 import { projects } from '../data/projects';
 import ProjectFilters from './ProjectFilters.astro';
 
-const allTechnologies = Array.from(
-  new Set(projects.flatMap((proj) => proj.technologies))
-).sort();
+const allTechnologies = Array.from(new Set(projects.flatMap((proj) => proj.technologies))).sort();
 ---
 
 <section id="proyectos" class="projects">
-	<div class="projects__header">
-		<span class="projects__number">03</span>
-		<h2 class="projects__title">Proyectos</h2>
-	</div>
+  <div class="projects__header">
+    <span class="projects__number">03</span>
+    <h2 class="projects__title">Proyectos</h2>
+  </div>
 
-	<ProjectFilters technologies={allTechnologies} />
+  <ProjectFilters technologies={allTechnologies} />
 
-	<div class="projects__list" id="projectsList">
-		{
-			projects.map((project, index) => (
-				<a
-					href={project.link || '#'}
-					class={`project ${project.featured ? 'project--featured' : ''}`}
-					data-technologies={JSON.stringify(project.technologies)}
-					data-project-id={project.id}
-				>
-					<span class="project__number">{String(index + 1).padStart(2, '0')}</span>
-					<div class="project__content">
-						<h3 class="project__title">{project.title}</h3>
-						<p class="project__description">{project.description}</p>
+  <div class="projects__list" id="projectsList">
+    {projects.map((project, index) => (
+      <a
+        href={project.link || '#'}
+        class={`project ${project.featured ? 'project--featured' : ''}`}
+        data-technologies={JSON.stringify(project.technologies)}
+        data-project-id={project.id}
+      >
+        <span class="project__number">{String(index + 1).padStart(2, '0')}</span>
+        <div class="project__content">
+          <h3 class="project__title">{project.title}</h3>
+          <p class="project__description">{project.description}</p>
 
-						{project.images.length > 0 && (
-							<div class="project__images">
-								{project.images.map((image) => (
-									<img
-										src={image.src}
-										alt={image.alt}
-										class="project__image"
-										loading="lazy"
-									/>
-								))}
-							</div>
-						)}
+          {project.images.length > 0 && (
+            <div class="project__images">
+              {project.images.map((image) => (
+                <img src={image.src} alt={image.alt} class="project__image" loading="lazy" />
+              ))}
+            </div>
+          )}
 
-						{project.technologies.length > 0 && (
-							<div class="project__tags">
-								{project.technologies.map((tech) => (
-									<span class="project__tag">{tech}</span>
-								))}
-							</div>
-						)}
-					</div>
-					<span class="project__cta">Ver proyecto →</span>
-				</a>
-			))
-		}
-	</div>
+          {project.technologies.length > 0 && (
+            <div class="project__tags">
+              {project.technologies.map((tech) => (
+                <span class="project__tag">{tech}</span>
+              ))}
+            </div>
+          )}
+        </div>
+        <span class="project__cta">Ver proyecto →</span>
+      </a>
+    ))}
+  </div>
 </section>
 
 <script>
-	const filterButtons = document.querySelectorAll('.projects__filter-btn') as NodeListOf<HTMLButtonElement>;
-	const projectItems = document.querySelectorAll('.project') as NodeListOf<HTMLElement>;
-	let activeFilters = new Set<string>();
+  const filterButtons = document.querySelectorAll(
+    '.projects__filter-btn',
+  ) as NodeListOf<HTMLButtonElement>;
+  const projectItems = document.querySelectorAll('.project') as NodeListOf<HTMLElement>;
+  const activeFilters = new Set<string>();
 
-	filterButtons.forEach((button) => {
-		button.addEventListener('click', () => {
-			const tech = button.getAttribute('data-tech');
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const tech = button.getAttribute('data-tech');
 
-			if (button.classList.contains('active')) {
-				button.classList.remove('active');
-				if (tech) activeFilters.delete(tech);
-			} else {
-				button.classList.add('active');
-				if (tech) activeFilters.add(tech);
-			}
+      if (button.classList.contains('active')) {
+        button.classList.remove('active');
+        if (tech) activeFilters.delete(tech);
+      } else {
+        button.classList.add('active');
+        if (tech) activeFilters.add(tech);
+      }
 
-			filterProjects();
-		});
-	});
+      filterProjects();
+    });
+  });
 
-	function filterProjects() {
-		projectItems.forEach((item) => {
-			const techs = JSON.parse(item.getAttribute('data-technologies') || '[]');
+  function filterProjects() {
+    projectItems.forEach((item) => {
+      const techs = JSON.parse(item.getAttribute('data-technologies') || '[]');
 
-			if (activeFilters.size === 0) {
-				item.classList.remove('hidden');
-			} else {
-				const hasSelectedTech = techs.some((tech: string) => activeFilters.has(tech));
-				if (hasSelectedTech) {
-					item.classList.remove('hidden');
-				} else {
-					item.classList.add('hidden');
-				}
-			}
-		});
-	}
+      if (activeFilters.size === 0) {
+        item.classList.remove('hidden');
+      } else {
+        const hasSelectedTech = techs.some((tech: string) => activeFilters.has(tech));
+        if (hasSelectedTech) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      }
+    });
+  }
 </script>
-
-

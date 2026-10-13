@@ -10,4 +10,3 @@ export interface Project {
   link?: string;
   featured: boolean;
 }
-

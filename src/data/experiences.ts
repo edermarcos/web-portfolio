@@ -45,7 +45,9 @@ export const experiences: ExperienceProject[] = [
     description:
       'Colaboré en un proyecto para PPG donde se realizó la migración de una aplicación de escritorio a tecnologías web. Dicha aplicación estaba destinada a gestionar información de productos internos, incluyendo pinturas, distribuidores y comparación de productos, etc.',
     technologies: ['Angular', 'TypeScript', 'Material UI'],
-    images: [{ src: '/projects/softtek/ppg-products.png', alt: 'Sistema de gestión de productos PPG' }],
+    images: [
+      { src: '/projects/softtek/ppg-products.png', alt: 'Sistema de gestión de productos PPG' },
+    ],
     featured: false,
   },
   {
@@ -74,4 +76,3 @@ export const experiences: ExperienceProject[] = [
     featured: false,
   },
 ];
-

@@ -22,11 +22,21 @@ import './Navigation.css';
     </span>
   </button>
   <div class="nav__links" id="nav-links">
-    <a href="#inicio" class="nav__link">Inicio</a>
-    <a href="#habilidades" class="nav__link">Habilidades</a>
-    <a href="#educacion" class="nav__link">Educación</a>
-    <a href="#experiencia" class="nav__link">Experiencia</a>
-    <a href="/150526 Eder Marcos CV.pdf" class="nav__link nav__link--cta">Descargar CV</a>
+    <a href="#inicio" class="nav__link">
+      Inicio
+    </a>
+    <a href="#habilidades" class="nav__link">
+      Habilidades
+    </a>
+    <a href="#educacion" class="nav__link">
+      Educación
+    </a>
+    <a href="#experiencia" class="nav__link">
+      Experiencia
+    </a>
+    <a href="/150526 Eder Marcos CV.pdf" class="nav__link nav__link--cta">
+      Descargar CV
+    </a>
   </div>
 </nav>
 
@@ -40,7 +50,7 @@ import './Navigation.css';
       toggle.setAttribute('aria-expanded', String(isOpen));
       toggle.setAttribute(
         'aria-label',
-        isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'
+        isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación',
       );
       links.classList.toggle('is-open', isOpen);
     };
