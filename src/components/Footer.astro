@@ -1,22 +1,62 @@
 ---
 import './Footer.css';
+
+// TODO: Agregar el número de WhatsApp con código de país para activar el enlace.
+// TODO: Reemplazar los perfiles pendientes con las URLs de redes sociales.
 ---
 
-<footer class="footer">
-  <p class="footer__label">// contacto</p>
-  <h2 class="footer__title">¿Construimos algo juntos?</h2>
-  <div class="footer__content">
-    <a href="mailto:eder.marcos.lara@gmail.com" class="footer__cta">
-      eder.marcos.lara@gmail.com
+<footer id="contacto" class="footer">
+  <div class="footer__header">
+    <p class="footer__label">// contacto</p>
+    <h2 class="footer__title">¿Construimos algo juntos?</h2>
+    <p class="footer__location">México · Disponible para colaborar de forma remota</p>
+  </div>
+
+  <div class="footer__channels">
+    <a href="mailto:eder.marcos.lara@gmail.com" class="footer__channel footer__channel--email">
+      <span class="footer__channel-label">Correo electrónico</span>
+      <span class="footer__channel-value">eder.marcos.lara@gmail.com</span>
+      <span class="footer__channel-arrow" aria-hidden="true">
+        ↗
+      </span>
     </a>
-    <div class="footer__links">
-      <a href="https://github.com" class="footer__link">
-        GitHub
-      </a>
-      <a href="https://linkedin.com" class="footer__link">
-        LinkedIn
-      </a>
+    <div class="footer__channel footer__channel--pending">
+      <span class="footer__channel-label">WhatsApp</span>
+      <span class="footer__channel-value">Número por agregar</span>
+      <span class="footer__channel-note">Enlace pendiente</span>
     </div>
+  </div>
+
+  <div class="footer__socials">
+    <h3 class="footer__social-title">También puedes encontrarme en</h3>
+    <ul class="footer__links">
+      <li>
+        <span class="footer__link">
+          TikTok <small>Perfil por agregar</small>
+        </span>
+      </li>
+      <li>
+        <span class="footer__link">
+          LinkedIn <small>Perfil por agregar</small>
+        </span>
+      </li>
+      <li>
+        <span class="footer__link">
+          GitHub <small>Perfil por agregar</small>
+        </span>
+      </li>
+      <li>
+        <span class="footer__link">
+          Instagram <small>Perfil por agregar</small>
+        </span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="footer__bottom">
     <span class="footer__copyright">© 2026 Jose Eder Marcos Lara</span>
+    <a class="footer__back-to-top" href="#inicio">
+      Volver al inicio ↑
+    </a>
   </div>
 </footer>
