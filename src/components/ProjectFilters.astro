@@ -1,18 +1,30 @@
 ---
-interface Props {
-  technologies: string[];
-}
+import type { ProjectFiltersProps } from '../types/project';
 
-const { technologies } = Astro.props;
+const { years, technologies } = Astro.props as ProjectFiltersProps;
 ---
 
 <div class="projects__filters">
-  <p class="projects__filters-label">Filtrar por tecnología:</p>
-  <div class="projects__filters-container">
-    {technologies.map((tech) => (
-      <button class="projects__filter-btn" data-tech={tech} title={`Filtrar por ${tech}`}>
-        {tech}
-      </button>
-    ))}
+  <div class="projects__filter">
+    <label class="projects__filters-label" for="projectYearFilter">
+      Año
+    </label>
+    <select class="projects__filter-select" id="projectYearFilter">
+      <option value="">Todos los años</option>
+      {years.map((year) => (
+        <option value={year}>{year}</option>
+      ))}
+    </select>
+  </div>
+  <div class="projects__filter">
+    <label class="projects__filters-label" for="projectTechnologyFilter">
+      Tecnología
+    </label>
+    <select class="projects__filter-select" id="projectTechnologyFilter">
+      <option value="">Todas las tecnologías</option>
+      {technologies.map((technology) => (
+        <option value={technology}>{technology}</option>
+      ))}
+    </select>
   </div>
 </div>

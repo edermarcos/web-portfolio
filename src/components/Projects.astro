@@ -1,9 +1,24 @@
 ---
 import './Projects.css';
-import { projects } from '../data/projects';
+import { projects, projectStatuses } from '../data/projects';
 import ProjectFilters from './ProjectFilters.astro';
+import type { ProjectStatus } from '../types/project';
 
-const allTechnologies = Array.from(new Set(projects.flatMap((proj) => proj.technologies))).sort();
+const projectStatusLabels: Record<ProjectStatus, string> = {
+  completed: 'Finalizados',
+  design: 'En diseño',
+  'in-progress': 'En construcción',
+};
+const projectYears = Array.from(
+  new Set(
+    projects.flatMap(({ yearStart, yearEnd }) =>
+      Array.from({ length: yearEnd - yearStart + 1 }, (_, index) => yearStart + index),
+    ),
+  ),
+).sort((first, second) => second - first);
+const allTechnologies = Array.from(
+  new Set(projects.flatMap((project) => project.technologies)),
+).sort((first, second) => first.localeCompare(second));
 ---
 
 <section id="proyectos" class="projects">
@@ -12,80 +27,236 @@ const allTechnologies = Array.from(new Set(projects.flatMap((proj) => proj.techn
     <h2 class="projects__title">Proyectos</h2>
   </div>
 
-  <ProjectFilters technologies={allTechnologies} />
-
-  <div class="projects__list" id="projectsList">
-    {projects.map((project, index) => (
-      <a
-        href={project.link || '#'}
-        class={`project ${project.featured ? 'project--featured' : ''}`}
-        data-technologies={JSON.stringify(project.technologies)}
-        data-project-id={project.id}
+  <div class="projects__tabs" role="tablist" aria-label="Estado de los proyectos">
+    {projectStatuses.map((status, index) => (
+      <button
+        class:list={['projects__tab', index === 0 && 'projects__tab--active']}
+        id={`project-tab-${status.value}`}
+        type="button"
+        role="tab"
+        aria-controls="projectsList"
+        aria-selected={index === 0 ? 'true' : 'false'}
+        tabindex={index === 0 ? 0 : -1}
+        data-status={status.value}
       >
-        <span class="project__number">{String(index + 1).padStart(2, '0')}</span>
-        <div class="project__content">
-          <h3 class="project__title">{project.title}</h3>
-          <p class="project__description">{project.description}</p>
-
-          {project.images.length > 0 && (
-            <div class="project__images">
-              {project.images.map((image) => (
-                <img src={image.src} alt={image.alt} class="project__image" loading="lazy" />
-              ))}
-            </div>
-          )}
-
-          {project.technologies.length > 0 && (
-            <div class="project__tags">
-              {project.technologies.map((tech) => (
-                <span class="project__tag">{tech}</span>
-              ))}
-            </div>
-          )}
-        </div>
-        <span class="project__cta">Ver proyecto →</span>
-      </a>
+        {status.label}
+      </button>
     ))}
   </div>
+
+  <ProjectFilters years={projectYears} technologies={allTechnologies} />
+
+  <div
+    class="projects__list"
+    id="projectsList"
+    role="tabpanel"
+    aria-labelledby="project-tab-completed"
+    tabindex="0"
+  >
+    {projects.map((project, index) => {
+      const years = Array.from(
+        { length: project.yearEnd - project.yearStart + 1 },
+        (_, yearIndex) => project.yearStart + yearIndex,
+      );
+
+      return (
+        <a
+          href={project.link || '#'}
+          class:list={['project', project.featured && 'project--featured']}
+          data-status={project.status}
+          data-years={JSON.stringify(years)}
+          data-technologies={JSON.stringify(project.technologies)}
+          data-project-id={project.id}
+          hidden={project.status !== projectStatuses[0].value}
+        >
+          <span class="project__number">{String(index + 1).padStart(2, '0')}</span>
+          <div class="project__content">
+            <h3 class="project__title">{project.title}</h3>
+            <div class="project__meta">
+              <span>{projectStatusLabels[project.status]}</span>
+              <span>
+                {project.yearStart === project.yearEnd
+                  ? project.yearStart
+                  : `${project.yearStart} — ${project.yearEnd}`}
+              </span>
+            </div>
+            <p class="project__description">{project.description}</p>
+
+            {project.images.length > 0 && (
+              <div class="project__images">
+                {project.images.map((image) => (
+                  <img src={image.src} alt={image.alt} class="project__image" loading="lazy" />
+                ))}
+              </div>
+            )}
+
+            {project.technologies.length > 0 && (
+              <div class="project__tags">
+                {project.technologies.map((technology) => (
+                  <span class="project__tag">{technology}</span>
+                ))}
+              </div>
+            )}
+          </div>
+          <span class="project__cta">Ver proyecto →</span>
+        </a>
+      );
+    })}
+  </div>
+
+  <p class="projects__empty" id="projectsEmpty" hidden>
+    No hay proyectos que coincidan con estos filtros.
+  </p>
+
+  <nav class="projects__pagination" aria-label="Paginación de proyectos">
+    <button class="projects__page-button" id="projectsPrevious" type="button" disabled>
+      Anterior
+    </button>
+    <span class="projects__page-status" id="projectsPageStatus" aria-live="polite">
+      Página 1 de 1
+    </span>
+    <button class="projects__page-button" id="projectsNext" type="button" disabled>
+      Siguiente
+    </button>
+  </nav>
 </section>
 
 <script>
-  const filterButtons = document.querySelectorAll(
-    '.projects__filter-btn',
-  ) as NodeListOf<HTMLButtonElement>;
-  const projectItems = document.querySelectorAll('.project') as NodeListOf<HTMLElement>;
-  const activeFilters = new Set<string>();
+  const pageSize = 6;
+  const statusTabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.projects__tab'));
+  const projectItems = Array.from(document.querySelectorAll<HTMLElement>('.project'));
+  const yearFilter = document.querySelector<HTMLSelectElement>('#projectYearFilter');
+  const technologyFilter = document.querySelector<HTMLSelectElement>('#projectTechnologyFilter');
+  const projectList = document.querySelector<HTMLElement>('#projectsList');
+  const emptyState = document.querySelector<HTMLParagraphElement>('#projectsEmpty');
+  const previousButton = document.querySelector<HTMLButtonElement>('#projectsPrevious');
+  const nextButton = document.querySelector<HTMLButtonElement>('#projectsNext');
+  const pageStatus = document.querySelector<HTMLSpanElement>('#projectsPageStatus');
+  let activeTab = statusTabs.find((tab) => tab.getAttribute('aria-selected') === 'true');
 
-  filterButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const tech = button.getAttribute('data-tech');
+  if (
+    !yearFilter ||
+    !technologyFilter ||
+    !projectList ||
+    !emptyState ||
+    !previousButton ||
+    !nextButton ||
+    !pageStatus ||
+    !activeTab?.dataset.status
+  ) {
+    throw new Error('Falta el marcado requerido para los filtros y la paginación de proyectos.');
+  }
 
-      if (button.classList.contains('active')) {
-        button.classList.remove('active');
-        if (tech) activeFilters.delete(tech);
-      } else {
-        button.classList.add('active');
-        if (tech) activeFilters.add(tech);
+  let activeStatus = activeTab.dataset.status;
+  const currentPages = new Map<string, number>(
+    statusTabs.map((tab) => [tab.dataset.status ?? '', 1]),
+  );
+
+  function renderProjects() {
+    const selectedYear = yearFilter.value ? Number(yearFilter.value) : null;
+    const selectedTechnology = technologyFilter.value;
+    const matchingProjects = projectItems.filter((project) => {
+      const years = JSON.parse(project.dataset.years ?? '[]') as number[];
+      const technologies = JSON.parse(project.dataset.technologies ?? '[]') as string[];
+
+      return (
+        project.dataset.status === activeStatus &&
+        (selectedYear === null || years.includes(selectedYear)) &&
+        (!selectedTechnology || technologies.includes(selectedTechnology))
+      );
+    });
+    const totalPages = Math.max(1, Math.ceil(matchingProjects.length / pageSize));
+    const currentPage = Math.min(currentPages.get(activeStatus) ?? 1, totalPages);
+    const firstVisibleIndex = (currentPage - 1) * pageSize;
+
+    currentPages.set(activeStatus, currentPage);
+    projectList.setAttribute('aria-labelledby', activeTab.id);
+
+    matchingProjects.forEach((project, index) => {
+      project.hidden = index < firstVisibleIndex || index >= firstVisibleIndex + pageSize;
+      const number = project.querySelector<HTMLElement>('.project__number');
+
+      if (number) {
+        number.textContent = String(index + 1).padStart(2, '0');
+      }
+    });
+
+    projectItems
+      .filter((project) => !matchingProjects.includes(project))
+      .forEach((project) => {
+        project.hidden = true;
+      });
+
+    emptyState.hidden = matchingProjects.length > 0;
+    previousButton.disabled = currentPage <= 1;
+    nextButton.disabled = currentPage >= totalPages;
+    pageStatus.textContent =
+      matchingProjects.length === 0 ? '0 proyectos' : `Página ${currentPage} de ${totalPages}`;
+  }
+
+  function selectTab(tab: HTMLButtonElement) {
+    const status = tab.dataset.status;
+
+    if (!status) {
+      throw new Error('Falta el estado del tab de proyectos.');
+    }
+
+    activeTab = tab;
+    activeStatus = status;
+    statusTabs.forEach((statusTab) => {
+      const isSelected = statusTab === tab;
+      statusTab.setAttribute('aria-selected', String(isSelected));
+      statusTab.tabIndex = isSelected ? 0 : -1;
+      statusTab.classList.toggle('projects__tab--active', isSelected);
+    });
+
+    renderProjects();
+  }
+
+  statusTabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => selectTab(tab));
+    tab.addEventListener('keydown', (event) => {
+      let nextIndex: number;
+
+      switch (event.key) {
+        case 'ArrowRight':
+          nextIndex = (index + 1) % statusTabs.length;
+          break;
+        case 'ArrowLeft':
+          nextIndex = (index - 1 + statusTabs.length) % statusTabs.length;
+          break;
+        case 'Home':
+          nextIndex = 0;
+          break;
+        case 'End':
+          nextIndex = statusTabs.length - 1;
+          break;
+        default:
+          return;
       }
 
-      filterProjects();
+      event.preventDefault();
+      statusTabs[nextIndex].focus();
+      selectTab(statusTabs[nextIndex]);
     });
   });
 
-  function filterProjects() {
-    projectItems.forEach((item) => {
-      const techs = JSON.parse(item.getAttribute('data-technologies') || '[]');
+  yearFilter.addEventListener('change', () => {
+    currentPages.set(activeStatus, 1);
+    renderProjects();
+  });
+  technologyFilter.addEventListener('change', () => {
+    currentPages.set(activeStatus, 1);
+    renderProjects();
+  });
+  previousButton.addEventListener('click', () => {
+    currentPages.set(activeStatus, Math.max(1, (currentPages.get(activeStatus) ?? 1) - 1));
+    renderProjects();
+  });
+  nextButton.addEventListener('click', () => {
+    currentPages.set(activeStatus, (currentPages.get(activeStatus) ?? 1) + 1);
+    renderProjects();
+  });
 
-      if (activeFilters.size === 0) {
-        item.classList.remove('hidden');
-      } else {
-        const hasSelectedTech = techs.some((tech: string) => activeFilters.has(tech));
-        if (hasSelectedTech) {
-          item.classList.remove('hidden');
-        } else {
-          item.classList.add('hidden');
-        }
-      }
-    });
-  }
+  renderProjects();
 </script>

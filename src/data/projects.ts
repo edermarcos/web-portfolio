@@ -1,11 +1,14 @@
-import type { Project } from '../types/project';
+import type { Project, ProjectStatus } from '../types/project';
 
 export const projects: Project[] = [
   {
     id: 'intranet',
     title: 'Intranet',
     description:
-      'Aplicación web concebida para gestionar datos de empleados y controlar solicitudes de vacaciones y permisos. La incorporación de módulos adicionales la convirtió en una herramienta versátil que aborda diversas necesidades empresariales, desde la administración de recursos humanos hasta funciones más allá de la gestión de datos.',
+      'Intranet desarrollada durante mi etapa en MTech Systems para gestionar información de empleados y solicitudes de vacaciones y permisos. Se amplió con módulos para atender distintas necesidades internas de la empresa.',
+    status: 'completed',
+    yearStart: 2018,
+    yearEnd: 2021,
     technologies: [
       'Angular',
       'Bootstrap 4',
@@ -23,3 +26,9 @@ export const projects: Project[] = [
     featured: true,
   },
 ];
+
+export const projectStatuses = [
+  { value: 'completed', label: 'Finalizados' },
+  { value: 'design', label: 'En diseño' },
+  { value: 'in-progress', label: 'En construcción' },
+] satisfies { value: ProjectStatus; label: string }[];

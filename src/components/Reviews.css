@@ -25,33 +25,87 @@
   letter-spacing: -1.5px;
 }
 
+.reviews__notice {
+  margin: 0 0 24px;
+  color: #5f5b50;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.reviews__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
 .reviews__card {
   display: grid;
-  grid-template-columns: 70px minmax(0, 1fr);
-  gap: 20px;
-  padding: 36px;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 12px;
+  padding: 24px;
   background: #e9e5d9;
   border-radius: 5px;
 }
 
+.reviews__card[hidden] {
+  display: none;
+}
+
 .reviews__quote-mark {
   color: #2d8a5b;
-  font-size: 84px;
+  font-size: 58px;
   line-height: 0.8;
 }
 
-.reviews__subtitle {
-  margin: 0 0 14px;
-  font-size: clamp(22px, 3vw, 30px);
-  letter-spacing: -0.8px;
-}
-
 .reviews__description {
-  margin: 0 0 22px;
-  max-width: 620px;
+  margin: 0 0 16px;
   color: #5f5b50;
   font-size: 15.5px;
   line-height: 1.7;
+}
+
+.reviews__example-label {
+  margin: 0;
+  color: #2d8a5b;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.reviews__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 24px 0;
+}
+
+.reviews__page-button {
+  padding: 9px 14px;
+  border: 1px solid #ddd7c8;
+  border-radius: 4px;
+  background: #fff;
+  color: #17150f;
+  cursor: pointer;
+  font: inherit;
+}
+
+.reviews__page-button:disabled {
+  color: #9a9484;
+  cursor: not-allowed;
+}
+
+.reviews__page-button:focus-visible {
+  outline: 2px solid #2d8a5b;
+  outline-offset: 3px;
+}
+
+.reviews__page-status {
+  min-width: 110px;
+  color: #5f5b50;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  text-align: center;
 }
 
 .reviews__cta {
@@ -72,16 +126,6 @@
   .reviews {
     padding: 64px 24px;
   }
-
-  .reviews__card {
-    grid-template-columns: 48px minmax(0, 1fr);
-    gap: 14px;
-    padding: 28px;
-  }
-
-  .reviews__quote-mark {
-    font-size: 68px;
-  }
 }
 
 @media (max-width: 520px) {
@@ -99,13 +143,12 @@
     letter-spacing: -1px;
   }
 
-  .reviews__card {
+  .reviews__list {
     grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 22px;
   }
 
-  .reviews__quote-mark {
-    font-size: 58px;
+  .reviews__card {
+    grid-template-columns: 34px minmax(0, 1fr);
+    padding: 20px;
   }
 }

@@ -1,7 +1,12 @@
+export type ProjectStatus = 'completed' | 'design' | 'in-progress';
+
 export interface Project {
   id: string;
   title: string;
   description: string;
+  status: ProjectStatus;
+  yearStart: number;
+  yearEnd: number;
   technologies: string[];
   images: {
     src: string;
@@ -9,4 +14,9 @@ export interface Project {
   }[];
   link?: string;
   featured: boolean;
+}
+
+export interface ProjectFiltersProps {
+  years: number[];
+  technologies: string[];
 }
