@@ -9,10 +9,6 @@ import { reviews } from '../data/reviews';
     <h2 class="reviews__title">Reseñas</h2>
   </div>
 
-  <p class="reviews__notice">
-    Estos 10 textos son ejemplos ficticios para mostrar el formato; no son testimonios reales.
-  </p>
-
   <div class="reviews__list" id="reviewsList">
     {reviews.map((review, index) => (
       <article class="reviews__card" data-review-id={review.id} hidden={index >= 5}>

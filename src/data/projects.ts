@@ -22,7 +22,7 @@ export const projects: Project[] = [
       { src: 'https://imgur.com/2vS5H0p.png', alt: 'Dashboard de Intranet' },
       { src: 'https://imgur.com/mrczxUj.png', alt: 'Gestión de empleados' },
     ],
-    link: '#',
+    link: '',
     featured: true,
   },
 ];

@@ -58,10 +58,10 @@ const allTechnologies = Array.from(
         { length: project.yearEnd - project.yearStart + 1 },
         (_, yearIndex) => project.yearStart + yearIndex,
       );
+      const projectLink = project.link?.trim();
 
       return (
-        <a
-          href={project.link || '#'}
+        <article
           class:list={['project', project.featured && 'project--featured']}
           data-status={project.status}
           data-years={JSON.stringify(years)}
@@ -98,8 +98,12 @@ const allTechnologies = Array.from(
               </div>
             )}
           </div>
-          <span class="project__cta">Ver proyecto →</span>
-        </a>
+          {projectLink && (
+            <a class="project__cta" href={projectLink}>
+              Ver proyecto →
+            </a>
+          )}
+        </article>
       );
     })}
   </div>

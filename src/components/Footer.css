@@ -54,13 +54,13 @@
   text-decoration: none;
 }
 
-.footer__channel--email {
+.footer__channel--whatsapp {
   background: #17150f;
   border-color: #17150f;
   color: #f4f1e9;
 }
 
-.footer__channel--phone {
+.footer__channel--email {
   background: #f8f6f0;
 }
 
