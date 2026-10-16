@@ -1,15 +1,12 @@
 ---
 import './Footer.css';
-
-// TODO: Agregar el número de WhatsApp con código de país para activar el enlace.
-// TODO: Reemplazar los perfiles pendientes con las URLs de redes sociales.
 ---
 
 <footer id="contacto" class="footer">
   <div class="footer__header">
     <p class="footer__label">// contacto</p>
     <h2 class="footer__title">¿Construimos algo juntos?</h2>
-    <p class="footer__location">México · Disponible para colaborar de forma remota</p>
+    <p class="footer__location">Querétaro, México · Disponible para colaborar de forma remota</p>
   </div>
 
   <div class="footer__channels">
@@ -20,35 +17,55 @@ import './Footer.css';
         ↗
       </span>
     </a>
-    <div class="footer__channel footer__channel--pending">
-      <span class="footer__channel-label">WhatsApp</span>
-      <span class="footer__channel-value">Número por agregar</span>
-      <span class="footer__channel-note">Enlace pendiente</span>
-    </div>
+    <a href="tel:+524426680133" class="footer__channel footer__channel--phone">
+      <span class="footer__channel-label">Teléfono</span>
+      <span class="footer__channel-value">+52 442 668 0133</span>
+      <span class="footer__channel-note">Llamar</span>
+    </a>
   </div>
 
   <div class="footer__socials">
     <h3 class="footer__social-title">También puedes encontrarme en</h3>
     <ul class="footer__links">
       <li>
-        <span class="footer__link">
-          TikTok <small>Perfil por agregar</small>
-        </span>
+        <a
+          class="footer__link"
+          href="https://github.com/edermarcos"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub <small>github.com/edermarcos</small>
+        </a>
       </li>
       <li>
-        <span class="footer__link">
-          LinkedIn <small>Perfil por agregar</small>
-        </span>
+        <a
+          class="footer__link"
+          href="https://www.linkedin.com/in/edermarcos/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn <small>linkedin.com/in/edermarcos</small>
+        </a>
       </li>
       <li>
-        <span class="footer__link">
-          GitHub <small>Perfil por agregar</small>
-        </span>
+        <a
+          class="footer__link"
+          href="https://www.instagram.com/iedermarcos/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Instagram <small>instagram.com/iedermarcos</small>
+        </a>
       </li>
       <li>
-        <span class="footer__link">
-          Instagram <small>Perfil por agregar</small>
-        </span>
+        <a
+          class="footer__link"
+          href="https://www.tiktok.com/@iedermarcos"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          TikTok <small>tiktok.com/@iedermarcos</small>
+        </a>
       </li>
     </ul>
   </div>
@@ -58,5 +75,9 @@ import './Footer.css';
     <a class="footer__back-to-top" href="#inicio">
       Volver al inicio ↑
     </a>
+  </div>
+
+  <div class="footer__watermark">
+    Sitio web desarrollado por <a href="#em-dev-studio">EM Dev Studio</a>
   </div>
 </footer>
